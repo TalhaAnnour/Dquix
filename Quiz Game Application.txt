@@ -1,0 +1,10 @@
+Quiz Game Application:-
+Html/CSS: for the structure and layouts.
+JavaScript: for the logic and interactivity.
+PHP: for storing data.
+MySQL: for the data base.
+
+PLAN:-
+Week1: HTML structure.
+week2: CSS layouts.
+Week3 JS logic & PHP storing data

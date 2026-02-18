@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dquix Quiz</title>
+  <link href="./output.css" rel="stylesheet" />
+</head>
+
+<body class="bg-green-950 text-white">
+  <div class="w-full h-screen flex flex-col justify-center items-center gap-10">
+    <h1 class="text-4xl font-bold text-yellow-400" id="questionTitle">Question:</h1>
+    <div class="bg-yellow-400 rounded-3xl p-6 w-[80%] text-center text-2xl text-green-950" id="questionText"></div>
+    <div class="grid grid-cols-2 gap-6 w-[80%] mt-6" id="optionsContainer"></div>
+  </div>
+
+  <script>
+    const scoreKey = "quizScore";
+    const usedKey = "usedQuestionIndexes";
+    //Total questions
+    const totalQuestionsToAsk = 10;
+    //Available questions 100 
+    const questions = [
+      { text: "What does HTML stand for?", options: ["Hyper Trainer Marking Language", "Hyper Text Markup Language", "High Text Markup Level", "Home Tool Markup Language"], answer: "Hyper Text Markup Language" },
+      { text: "Which number is a prime number?", options: ["4", "6", "9", "13"], answer: "13" },
+      { text: "CSS is used for?", options: ["Styling HTML pages", "Writing server-side code", "Structuring HTML", "Adding animations only"], answer: "Styling HTML pages" },
+      { text: "Which tag is used for JavaScript?", options: ["<js>", "<script>", "<javascript>", "<code>"], answer: "<script>" },
+      { text: "What does CPU stand for?", options: ["Central Process Unit", "Central Processing Unit", "Computer Personal Unit", "Control Processing Unit"], answer: "Central Processing Unit" },
+      { text: "What language runs in a web browser?", options: ["Java", "C", "Python", "JavaScript"], answer: "JavaScript" },
+      { text: "What is 2 to the power of 3?", options: ["6", "8", "9", "12"], answer: "8" },
+      { text: "Which one is not a programming language?", options: ["Python", "HTML", "Java", "C++"], answer: "HTML" },
+      { text: "What does RAM stand for?", options: ["Read Access Memory", "Random Access Memory", "Run All Memory", "Render Access Module"], answer: "Random Access Memory" },
+      { text: "Which company developed the C# language?", options: ["Apple", "Sun Microsystems", "Microsoft", "Google"], answer: "Microsoft" },
+      { text: "Which one is a NoSQL database?", options: ["MySQL", "PostgreSQL", "MongoDB", "Oracle"], answer: "MongoDB" },
+      { text: "What symbol is used for comments in JavaScript?", options: ["#", "<!-- -->", "//", "/* */"], answer: "//" },
+      { text: "What does HTTP stand for?", options: ["Hyperlink Transfer Text Protocol", "HyperText Transfer Protocol", "HyperText Transmission Process", "Hyper Transfer Text Processing"], answer: "HyperText Transfer Protocol" },
+      { text: "Which HTML tag is used for inserting a line break?", options: ["<br>", "<lb>", "<break>", "<newline>"], answer: "<br>" },
+      { text: "What is 7 x 8?", options: ["56", "48", "63", "64"], answer: "56" },
+      { text: "What does IDE stand for?", options: ["Integrated Development Environment", "Internal Design Environment", "Interactive Development Environment", "Integrated Data Emulator"], answer: "Integrated Development Environment" },
+      { text: "Which of these is a Python data type?", options: ["Loop", "Function", "List", "MapReduce"], answer: "List" },
+      { text: "Which one is a frontend framework?", options: ["Django", "Flask", "React", "Angular"], answer: "React" },
+      { text: "Which company created the Go programming language?", options: ["Microsoft", "Google", "Facebook", "Amazon"], answer: "Google" },
+      { text: "What is the result of 9 % 2?", options: ["1", "2", "0", "3"], answer: "1" },
+      { text: "Which operator is used to assign a value in JavaScript?", options: ["=", "==", "!=", "++"], answer: "=" },
+      { text: "Which HTML attribute is used to define inline styles?", options: ["class", "style", "font", "styles"], answer: "style" },
+      { text: "In which year was Python released?", options: ["1991", "2000", "1989", "1995"], answer: "1991" },
+      { text: "What is the result of 10 / 2?", options: ["4", "6", "5", "2"], answer: "5" },
+      { text: "Which data structure uses FIFO (First In First Out)?", options: ["Stack", "Queue", "Tree", "Graph"], answer: "Queue" },
+      { text: "Which tag is used to define a table row in HTML?", options: ["<tr>", "<td>", "<th>", "<table>"], answer: "<tr>" },
+      { text: "What does API stand for?", options: ["Application Programming Interface", "Advanced Programming Interface", "Applied Protocol Interface", "Application Program Internet"], answer: "Application Programming Interface" },
+      { text: "Which sorting algorithm is the fastest in average case?", options: ["Bubble Sort", "Quick Sort", "Selection Sort", "Insertion Sort"], answer: "Quick Sort" },
+      { text: "What is the binary of 5?", options: ["101", "110", "111", "100"], answer: "101" },
+      { text: "Which tag defines a hyperlink in HTML?", options: ["<a>", "<link>", "<href>", "<hyper>"], answer: "<a>" },
+      { text: "What does SQL stand for?", options: ["Structured Query Language", "Simple Query Logic", "Structured Question Language", "Sequential Query Language"], answer: "Structured Query Language" },
+      { text: "What is the value of PI (approx)?", options: ["3.12", "3.14", "3.16", "3.18"], answer: "3.14" },
+      { text: "Which operator is used to compare both value and type in JS?", options: ["===", "=", "==", "!=="], answer: "==" },
+      { text: "Which protocol is used to send email?", options: ["HTTP", "SMTP", "FTP", "SSH"], answer: "SMTP" },
+      { text: "Which programming language is used in AI?", options: ["HTML", "CSS", "Python", "SQL"], answer: "Python" },
+      { text: "Which tool is used for version control?", options: ["Node.js", "Docker", "Git", "Jenkins"], answer: "Git" },
+      { text: "How many bits in a byte?", options: ["2", "4", "8", "16"], answer: "8" },
+      { text: "What is the square root of 64?", options: ["6", "7", "8", "9"], answer: "8" },
+      { text: "Which file type is NOT a common image format?", options: [".jpg", ".png", ".exe", ".gif"], answer: ".exe" },
+      { text: "What is the extension for JavaScript files?", options: [".js", ".java", ".jsx", ".json"], answer: ".js" },
+      { text: "What does the Math.floor() function do in JS?", options: ["Rounds up", "Rounds down", "Random number", "Returns PI"], answer: "Rounds down" },
+      { text: "Which keyword declares a constant in JS?", options: ["var", "let", "const", "static"], answer: "const" },
+      { text: "Which number is even?", options: ["15", "27", "42", "33"], answer: "42" },
+      { text: "Which of these is a loop in JavaScript?", options: ["if", "for", "def", "switch"], answer: "for" },
+      { text: "Which logic gate outputs true only if both inputs are true?", options: ["OR", "XOR", "AND", "NOT"], answer: "AND" },
+      { text: "Which property changes text color in CSS?", options: ["font-color", "color", "text-style", "text-color"], answer: "color" },
+      { text: "Which one is a backend technology?", options: ["React", "Vue", "Node.js", "Bootstrap"], answer: "Node.js" },
+      { text: "What is 1000 in binary?", options: ["1111", "1000", "1010", "1100"], answer: "1000" },
+      { text: "Which tag is used for a list item?", options: ["<list>", "<li>", "<item>", "<ul>"], answer: "<li>" },
+      { text: "What is the hexadecimal value of 15?", options: ["F", "E", "D", "A"], answer: "F" },
+      { text: "Which programming language uses indentation to define blocks?", options: ["Java", "C++", "Python", "JavaScript"], answer: "Python" },
+      { text: "What does DOM stand for?", options: ["Document Object Model", "Data Object Manager", "Digital Output Module", "Document Output Mode"], answer: "Document Object Model" },
+      { text: "Which keyword is used to define a function in JavaScript?", options: ["def", "function", "func", "define"], answer: "function" },
+      { text: "Which protocol is used for secure communication over the web?", options: ["HTTP", "FTP", "SMTP", "HTTPS"], answer: "HTTPS" },
+      { text: "What is the default port for HTTP?", options: ["80", "443", "21", "25"], answer: "80" },
+      { text: "Which of these is a version control system?", options: ["Git", "Linux", "Apache", "Nginx"], answer: "Git" },
+      { text: "What does JSON stand for?", options: ["JavaScript Object Notation", "Java System Object Name", "JavaScript Online Network", "Java Structured Output Notation"], answer: "JavaScript Object Notation" },
+      { text: "What is used to uniquely identify a record in a database?", options: ["Primary key", "Foreign key", "Index", "Constraint"], answer: "Primary key" },
+      { text: "Which company developed TypeScript?", options: ["Facebook", "Google", "Microsoft", "IBM"], answer: "Microsoft" },
+      { text: "Which of these is a JavaScript framework?", options: ["Angular", "Flask", "Vue.js", "Django"], answer: "Vue.js" },
+      { text: "What is the output of 3 + '3' in JavaScript?", options: ["6", "33", "Error", "NaN"], answer: "33" },
+      { text: "Which keyword is used to declare a variable in Python?", options: ["let", "var", "define", "No keyword needed"], answer: "No keyword needed" },
+      { text: "Which of these is a Boolean operator?", options: ["==", "&&", "+", "++"], answer: "&&" },
+      { text: "What is the correct HTML tag for the largest heading?", options: ["<h6>", "<h1>", "<header>", "<head>"], answer: "<h1>" },
+      { text: "Which HTML element is used to display an image?", options: ["<img>", "<src>", "<image>", "<pic>"], answer: "<img>" },
+      { text: "Which Python keyword is used for loops?", options: ["loop", "iterate", "for", "repeat"], answer: "for" },
+      { text: "Which function is used to output text in Python?", options: ["console.log", "print()", "printf()", "echo"], answer: "print()" },
+      { text: "Which of these is a valid JavaScript variable name?", options: ["2value", "value-2", "value_2", "value 2"], answer: "value_2" },
+      { text: "Which one is not a relational database?", options: ["MySQL", "PostgreSQL", "MongoDB", "SQLite"], answer: "MongoDB" },
+      { text: "Which programming concept is used to hide internal details?", options: ["Polymorphism", "Abstraction", "Inheritance", "Encapsulation"], answer: "Abstraction" },
+      { text: "What is used to group multiple values in one variable in JS?", options: ["Object", "Class", "Array", "Function"], answer: "Array" },
+      { text: "Which function returns the length of a list in Python?", options: ["size()", "count()", "length()", "len()"], answer: "len()" },
+      { text: "What type of language is SQL?", options: ["Procedural", "Markup", "Query", "Object-Oriented"], answer: "Query" },
+      { text: "What does CLI stand for?", options: ["Code Line Interface", "Command Line Interface", "Command Language Input", "Control Language Interface"], answer: "Command Line Interface" },
+      { text: "Which HTML tag is used to create a numbered list?", options: ["<ul>", "<ol>", "<li>", "<dl>"], answer: "<ol>" },
+      { text: "Which CSS property sets the background color?", options: ["color", "bg-color", "background", "background-color"], answer: "background-color" },
+      { text: "What is the correct syntax for an if statement in Python?", options: ["if x = 5 then:", "if (x == 5)", "if x == 5:", "if x == 5 then"], answer: "if x == 5:" },
+      { text: "Which method adds an element to the end of a list in Python?", options: ["append()", "push()", "add()", "insert()"], answer: "append()" },
+      { text: "Which keyword is used to inherit a class in Python?", options: ["extends", "inherits", "super", "class SubClass(Parent)"], answer: "class SubClass(Parent)" },
+      { text: "What is the output type of `input()` in Python?", options: ["Integer", "String", "Boolean", "List"], answer: "String" },
+      { text: "Which tag is used for tables in HTML?", options: ["<table>", "<tab>", "<grid>", "<layout>"], answer: "<table>" },
+      { text: "Which of these is a strongly typed language?", options: ["Java", "JavaScript", "PHP", "HTML"], answer: "Java" },
+      { text: "Which method converts a string to a number in JS?", options: ["Number()", "str()", "parseNum()", "convert()"], answer: "Number()" },
+      { text: "Which of these is not a type in JavaScript?", options: ["string", "number", "character", "boolean"], answer: "character" },
+      { text: "Which function is used to find errors in code?", options: ["debugger", "compiler", "interpreter", "editor"], answer: "debugger" },
+      { text: "What is Big-O notation used for?", options: ["Measuring memory", "Naming variables", "Analyzing algorithm efficiency", "Compiling code"], answer: "Analyzing algorithm efficiency" },
+      { text: "What does CSS stand for?", options: ["Computer Style Sheets", "Creative Style Sheets", "Cascading Style Sheets", "Colorful Style Sheets"], answer: "Cascading Style Sheets" },
+      { text: "Which method is used to remove the last item from an array in JS?", options: ["remove()", "pop()", "delete()", "cut()"], answer: "pop()" },
+      { text: "Which Python keyword handles exceptions?", options: ["throw", "try", "error", "except"], answer: "try" },
+      { text: "Which operator is used to raise to a power in Python?", options: ["^", "**", "^^", "exp"], answer: "**" },
+      { text: "Which data structure uses LIFO?", options: ["Queue", "Tree", "Stack", "Array"], answer: "Stack" },
+      { text: "What symbol is used for single-line comments in Python?", options: ["//", "<!--", "#", "/*"], answer: "#" },
+      { text: "Which HTML tag is used for a dropdown list?", options: ["<select>", "<input>", "<dropdown>", "<option>"], answer: "<select>" },
+      { text: "Which unit is used for font sizes in CSS?", options: ["px", "sec", "in", "pt"], answer: "px" },
+      { text: "Which tool is used to inspect elements in a browser?", options: ["Editor", "DevTools", "Console", "Debugger"], answer: "DevTools" },
+      { text: "Which of the following is a compiled language?", options: ["Python", "Java", "JavaScript", "Ruby"], answer: "Java" },
+      { text: "Which of the following is an interpreted language?", options: ["C++", "C#", "Python", "Java"], answer: "Python" },
+      { text: "What tag is used to make text bold in HTML?", options: ["<bold>", "<b>", "<strong>", "<weight>"], answer: "<b>" },
+      { text: "Which of the following is not a looping structure?", options: ["for", "while", "do-while", "repeat-until"], answer: "repeat-until" },
+      { text: "Which Programming language that's used for AI?", options: ["Python", "HTML", "PHP", "React JS"], answer: "Python" },
+      { text: "All these are examples of mobile application EXCEPT!", options: ["WhatsApp", "File Manager", "VScode", "Instagram"], answer: "VScode" },
+      { text: "Which programming language that's used for Building 3D games", options: ["R", "C#", "GO", "Rust"], answer: "C#" },
+      { text: "Which logic gate outputs true only when both inputs are the same?", options: ["XOR", "XNOR", "OR", "NOR"], answer: "XNOR" },
+      { text: "'1' + '1' to equal to :", options: ["1", "2", "0", "11"], answer: "11" },
+      { text: " 1 + 1 in binary is equal to :", options: ["1", "10", "11", "2"], answer: "10" },
+      { text: "Which are of these tools that's used for Data science?", options: ["Excel", "MS word", "Power shell", "Git hub"], answer: "Excel" },
+      { text: "Which of the models that uses all the models combined?", options: ["Waterfall model", "incremental model", "Prototyping model", "Spiral model"], answer: "Spiral model" },
+      { text: "Which of the logical connectives ", options: ["Python", "HTML", "PHP", "React JS"], answer: "Python" },
+      { text: "Which of the following is a NoSQL database?", options: ["MySQL", "PostgreSQL", "MongoDB", "SQLite"], answer: "MongoDB" },
+      { text: "Which of the following is a JavaScript library for building user interfaces?", options: ["React", "Vue", "Angular", "All of the above"], answer: "All of the above" },
+      { text: "What does CRUD stand for in database operations?", options: ["Create, Read, Update, Delete", "Create, Run, Update, Delete", "Create, Read, Upload, Download", "Create, Read, Use, Delete"], answer: "Create, Read, Update, Delete" },
+      { text: "Which of the following is a CSS preprocessor?", options: ["Sass", "Less", "Stylus", "All of the above"], answer: "All of the above" },
+      { text: "What is the purpose of a web server?", options: ["To host websites", "To store files", "To run applications", "All of the above"], answer: "All of the above" },
+      { text: "Which of the following is a version control system?", options: ["Git", "SVN", "Mercurial", "All of the above"], answer: "All of the above" },
+      { text: "What is the symbol that's used to do a comment python ? " , options: ["//", "#", "no symbol needed", "/* */"], answer: "#"}, 
+      { text: "What is the valid syntax of f string in python?", options: ["Before the string and out the quotes", "After the string", "Inside the quotes", "non of the above"], answer: "non of the above"}
+
+      // Add more questions as needed
+    ];
+
+    const usedIndexes = JSON.parse(localStorage.getItem(usedKey)) || [];
+    if (usedIndexes.length >= totalQuestionsToAsk) {
+      window.location.href = "results.html";
+    }
+    //For randomizing questions
+    let availableIndexes = questions.map((_, index) => index).filter(i => !usedIndexes.includes(i));
+    const currentIndex = availableIndexes[Math.floor(Math.random() * availableIndexes.length)];
+    const currentQuestion = questions[currentIndex];
+
+    const questionText = document.getElementById("questionText");
+    const questionTitle = document.getElementById("questionTitle");
+    const optionsContainer = document.getElementById("optionsContainer");
+    //For increase the index of the questions
+    questionTitle.innerText = `Question ${usedIndexes.length + 1}:`;
+    //For changing questions
+    questionText.innerText = currentQuestion.text;
+    //Styling the options
+    currentQuestion.options.forEach(option => {
+      const btn = document.createElement("div");
+      btn.className = "bg-white text-xl text-green-900 font-semibold p-4 rounded-2xl text-center cursor-pointer hover:bg-yellow-200";
+      btn.innerText = option;
+      btn.onclick = () => checkAnswer(btn, option);
+      optionsContainer.appendChild(btn);
+    });
+    //Function for checking if the answer is correct or not 
+    function checkAnswer(element, selected) {
+      const isCorrect = selected === currentQuestion.answer;
+      const allOptions = document.querySelectorAll("#optionsContainer > div");
+
+      allOptions.forEach(opt => {
+        opt.style.pointerEvents = "none";
+        //When the answer is correct the color will be green
+        if (opt.innerText === currentQuestion.answer) {
+          opt.classList.remove("bg-white");
+          opt.classList.add("bg-green-500", "text-white");
+          //When the answer is wrong the color will be red
+        } else if (opt.innerText === selected) {
+          opt.classList.remove("bg-white");
+          opt.classList.add("bg-red-500", "text-white");
+        }
+      });
+      //Calculating the score
+      if (isCorrect) {
+        const currentScore = parseInt(localStorage.getItem(scoreKey)) || 0;
+        localStorage.setItem(scoreKey, currentScore + 1);
+      }
+
+      usedIndexes.push(currentIndex);
+      localStorage.setItem(usedKey, JSON.stringify(usedIndexes));
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1500);
+
+
+    }
+</script >
+</body >
+
+</html >

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Results - Dquix</title>
+  <link href="./output.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="bg-green-950 text-white">
+  <!--Result container-->
+  <div class="w-full h-screen flex flex-col justify-center items-center gap-10">
+    <!--Text for completing Dquix-->
+    <h1 class="text-5xl font-bold text-yellow-400 mt-10">🎉 Quiz Completed!</h1>
+    <!--Score container-->
+    <div class="bg-green-700 rounded-3xl p-10 text-center shadow-xl w-100">
+      <p class="text-3xl mb-4" id="greetingUser"></p>
+      <p id="scoreDisplay" class="text-2xl">Calculating your score...</p>
+    </div>
+    <!--The link for restarting the game-->
+   <div class=" flex justify-center items-center gap-3">
+     <a href="home.html" onclick="resetGame()"
+      class="bg-yellow-400 text-green-950 px-8 py-3 rounded-2xl font-bold text-xl hover:bg-yellow-300">
+      Back to Home
+    </a>
+    <!--The button for login page-->
+    <a href="login.html"   class="bg-yellow-400 text-green-950 px-8 py-3 rounded-2xl font-bold text-xl hover:bg-yellow-300">
+      Restart
+    </a>
+   </div>
+    <!--The link for the developers-->
+    <a href="#Developers"  class="bg-yellow-400 text-green-950 px-8 py-3 rounded-2xl font-bold text-xl hover:bg-yellow-300">Developed by:</a>
+      
+  </div>
+  <!--Developers details-->
+  <div class="flex justify-center items-center flex-col gap-10" id="Developers">
+    <!-- <span class="text-6xl text-white bg-clip-text bg-amber-500 font-semibold">Group 12</span> -->
+  <div class="w-1/10 h-screen bg-green-950 justify-center items-center">
+    <div class="flex flex-col justify-center items-center">
+      <img src="imgs/I.jpeg" alt="Annour" class="w-100 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500 font-bold text-4xl">Talha Annour Talha <br> U1/23/CSC/3413</span>
+    </div>
+    <!-- <div class="flex flex-col justify-center items-center">
+      <img src="imgs/Aisha muhammad.jpg" alt="Annour" class="w-50 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500">Aisha Muhammad <br> U1/23/CSC/3421</span>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <img src="imgs/Bilyaminu.jpg" alt="Annour" class="w-50 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500">Bilyaminu Umar<br> U1/23/CSC/3389</span>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <img src="imgs/user.png" alt="Annour" class="w-50 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500">Abubakar Abba Yusuf <br> U1/23/CSC/3431</span>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <img src="imgs/user.png" alt="Annour" class="w-50 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500">Yusuf Yakubu <br> U1/23/CSC/3285</span>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <img src="imgs/user.png" alt="Annour" class="w-50 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500">Abdulhakim Usman Sada <br> U1/23/CSC/3299</span>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <img src="imgs/user.png" alt="Annour" class="w-50 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500">Muhammad Ibrahim <br> U1/23/CSC/3303</span>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <img src="imgs/user.png" alt="Annour" class="w-50 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500">Usman Ibrahim Usman <br> U1/23/CSC/3324</span>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <img src="imgs/user.png" alt="Annour" class="w-50 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500">Almustapha Sulaiman<br> U1/23/CSC/3357</span>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <img src="imgs/user.png" alt="Annour" class="w-50 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500">Idris Rilwanu <br> U1/23/CSC/3385</span>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <img src="imgs/user.png" alt="Annour" class="w-50 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500">Abdullahi Yusuf Bello<br> U1/23/CSC/3468</span>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <img src="imgs/user.png" alt="Annour" class="w-50 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500">Yusuf Sani <br> U1/23/CSC/3474</span>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <img src="imgs/user.png" alt="Annour" class="w-50 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500">Muhammad Akilu <br> U1/23/CSC/3507</span>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <img src="imgs/user.png" alt="Annour" class="w-50 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500">Almustapha Yakubu <br> U1/23/CSC/3510</span>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <img src="imgs/user.png" alt="Annour" class="w-50 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500">Yusuf Abubakar <br> U1/23/CSC/3511</span>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <img src="imgs/user.png" alt="Annour" class="w-50 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500">Bashir Bashir <br> U1/23/CSC/3564</span>
+    </div>
+    <div class="flex flex-col justify-center items-center">
+      <img src="imgs/user.png" alt="Annour" class="w-50 rounded-full border-2 border-yellow-500">
+      <span class="text-yellow-500">Ahmad Iliyasu Yandoma <br> U1/23/CSC/3580</span>
+    </div> -->
+  </div>
+
+  </div>
+  <script>
+    //Declare the score and player's name
+    const score = parseInt(localStorage.getItem("quizScore")) || 0;
+    const totalQuestions = 10;
+    const userName = localStorage.getItem("dquixUserName") || "Player";
+    //Congratulating the user Displaying the result
+    document.getElementById("greetingUser").innerText = `Well done, ${userName}!`;
+    document.getElementById("scoreDisplay").innerText = `Your Score: ${score}/${totalQuestions}`;
+    //When done it reset the score
+    function resetGame() {
+      localStorage.removeItem("quizScore");
+    }
+  </script>
+</body>
+
+</html>

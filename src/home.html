@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dquix Home Page</title>
+  <link href="./output.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body class="bg-green-950 text-white">
+  <!--Home page container-->
+  <div class="w-full h-[95vh] flex flex-col justify-center items-center gap-10 animate-fade-in">
+    <!--Welcoming text-->
+    <h1 class="text-6xl font-bold text-yellow-400 animate-bounce">Welcome to Dquix!</h1>
+    <!--Greeting the user-->
+    <p id="welcomeUser" class="text-3xl text-center max-w-xl"></p>
+    <p class="text-2xl text-center max-w-xl">
+      Test your skills in Web Development, Programming, and Mathematics.
+      Are you ready to challenge your brain?
+    </p>
+    <!--Let's start button-->
+    <a href="questions.html"  onclick="resetQuiz()"
+      class="bg-yellow-400 text-green-950 px-10 py-3 rounded-full text-2xl font-semibold hover:bg-yellow-300 transition">
+      Let's Start 🚀
+    </a>
+  </div>
+
+  <script>
+    //The DOM for greeting the user 
+    const userName = localStorage.getItem("dquixUserName") || "User";
+    document.getElementById("welcomeUser").innerText = `Hello, ${userName}!`;
+  </script>
+
+  <script>
+    //The function for resetting the score and set new questions 
+  function resetQuiz() {
+    localStorage.removeItem("quizScore");
+    localStorage.removeItem("usedQuestionIndexes");
+  }
+</script>
+
+  <style>
+    /*The animation for the fade in*/
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .animate-fade-in {
+      animation: fade-in 1.2s ease-out;
+    }
+  </style>
+</body>
+
+</html>
